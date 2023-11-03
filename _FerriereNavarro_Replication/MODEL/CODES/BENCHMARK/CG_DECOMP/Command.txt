@@ -1,0 +1,5 @@
+ifort -o FN.exe normcdf.f Toolbox.f90 GLOBALS.f90 ModuleSAVE.f90 ModuleINIT.f90 FUNCTIONS.f90 ModuleCOMPUTATIONS.f90 ModuleSTEADY.f90 FUNCTIONS_TR.f90 ModuleCOMPUTATIONS_TR.f90 ModuleQERRORS_TR.f90 ModuleTRANSITION.f90 MAIN.f90 -mcmodel=large -shared-intel -qopenmp -mkl
+
+% Choose index_decomp = 1, 2 or 3 in MAIN, line 60
+./a.out
+

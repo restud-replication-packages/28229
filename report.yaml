@@ -3,8 +3,9 @@ salutation: Gaston
 email: gaston.m.navarro@frb.gov
 title: The Heterogeneous Effects of Government Spending: It's All about Taxes
 praise: ""
-requests:
     - *hardware_requirements
     - Please add to the readme file the estimated time required to run the replication package.
+    - *cite_data (DATA_MACRO_FN.csv, DATA_STATE_FN.csv)
 recommendations:
-    -
+    - Please use case sensitive paths and filenames in your scriipts and commands as unix systems are case sensitive.
+

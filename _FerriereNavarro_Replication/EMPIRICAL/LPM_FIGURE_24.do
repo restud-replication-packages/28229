@@ -10,7 +10,7 @@ set more off
 global sep = "/"  // sep = "/" for mac, and sep = "\" for windows
 
 *--set baseline directory
-global baseline_path "/Users/gastonnavarro/Dropbox/Axelle-Gaston/GovernmentSpending/REPLICATION/EMPIRICAL"
+global baseline_path "/srv/project/restud/28229/_FerriereNavarro_Replication/EMPIRICAL"
 
 global outputdir "$baseline_path${sep}output"
 global auxdir    "$baseline_path${sep}auxiliar"

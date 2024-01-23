@@ -28,23 +28,48 @@ import delimited "$baseline_path${sep}DATA_MACRO_FN.csv", delimiter(comma) varna
 ****************************************************************************************
 global Hmax = 16 	// Maximum horizon for the LPM  
 global LAG  = 8 	// number of lags for the regression
-global TP   = 4     // trend = t^[1, 2 , ... , TP]
 global QLAG = 4     // number of lags for the Newey-West correction matrix
 
 // full sample: id=1913 & fd=2006.75 // post accord: id=1951 & fd=2006.75 // post 80s: id=1980 & fd=2006.75 
-global id  = 1913    // initial date to use in computations        
-global fd  = 2006.75 // final date to use in computations        
-local ids = "1913"    
-local fds = "2006"
+global case = 3 // case = 1 for full sample 1913Q1-2006Q4, case = 2 for post-accord sample 1951Q1-2006Q4, case = 3 for post-80s sample 1980Q1-2006Q4
+if $case == 1{  // *--full sample 
+	*------------------------------------------------------------------------------	
+	global id  = 1913    // final date to use in computations        
+	global fd  = 2006.75 // final date to use in computations        
+	local ids = "1913"    
+	local fds = "2006"	
+	
+	global TP   = 4      // trend = t^[1, 2 , ... , TP]
+	*------------------------------------------------------------------------------	
+}
+if $case == 2{  // *--post-accord sample 
+	*------------------------------------------------------------------------------	
+	global id  = 1951    // final date to use in computations        
+	global fd  = 2006.75 // final date to use in computations        
+	local ids = "1951"    
+	local fds = "2006"
+	
+	global TP   = 4      // trend = t^[1, 2 , ... , TP]
+	*------------------------------------------------------------------------------	
+}
 
+if $case == 3{  // *--post-80s sample 
+	*------------------------------------------------------------------------------	
+	global id  = 1980    // final date to use in computations        
+	global fd  = 2006.75 // final date to use in computations        
+	local ids = "1980"    
+	local fds = "2006"
+	
+	global TP   = 2      // trend = t^[1, 2 , ... , TP]
+	*------------------------------------------------------------------------------	
+}
 
 global idbp  = $id    // initial date to use for bp computations        
-global fdbp  = $fd // final date to use for bp computations    
+global fdbp  = $fd    // final date to use for bp computations    
 
 global idgg  = 1913    // initial date to use dg normalization
 global fdgg  = 2006.75 // final date to use dg normalization
-
-
+	
 *--lhs variable
 local yvar "tb3"
 
@@ -100,7 +125,7 @@ local varreg L(1/$LAG).lngdp  L(1/$LAG).lngov  L(1/$LAG).mtr L(1/$LAG).tb3 trend
 
 
 ****************************************************************************************
-*---normalize so that dg = 1% in full sample case
+*---normalize so that dg = 1% in full selcted case
 ****************************************************************************************
 
 gen dyx = lngov - L.lngov
@@ -183,7 +208,7 @@ forvalues ih = 0 (1) $Hmax {
 
 use "$auxdir${sep}coef_save.dta", clear
 
-*--normalize st dg = 1% in full sample case
+*--normalize st dg = 1% in full selcted sample case
 #delimit ;
 replace m = m*$g_adj ; replace m_se = m_se*$g_adj ;
 #delimit cr

@@ -122,7 +122,7 @@ title('TB3','Interpreter','LaTex','Fontsize',30)
 xlabel('Quarters','Interpreter','LaTex','Fontsize',27)
 ylabel('percentage points','Interpreter','LaTex','Fontsize',27)
 xlim([xlb xub])
-%ylim([ylb yub])
+ylim([-0.06 0.02])
 hold off
 subplot(2,2,3)
 fill([0:H, H:-1:0],[100*IRF_rdef_m_lb_P(1:H+1)', 100*IRF_rdef_m_ub_P(H+1:-1:1)'],colorPci,'edgecolor',colorPci); hold on

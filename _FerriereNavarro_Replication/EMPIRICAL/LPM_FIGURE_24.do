@@ -34,17 +34,36 @@ global QLAG = 4     // number of lags for the Newey-West correction matrix
 global w_up = 12    // 12 quarters forward for state indicator
 global w_dw = 8     // 8 quarters backward for state indicator
 
-// full sample: id=1913 & fd=2006.75 // post accord: id=1951 & fd=2006.75 // post 80s: id=1980 & fd=2006.75 
-global id  = 1913    // final date to use in computations        
-global fd  = 2006.75 // final date to use in computations        
-local ids = "1913"    
-local fds = "2006"
+// full sample: id=1913 & fd=2006.75 // post accord: id=1951 & fd=2006.75 
+global case = 2 // case = 1 for full sample 1913Q1-2006Q4, case = 2 for post-accord sample 1951Q1-2006Q4
+if $case == 1{  // *--full sample 
+	*------------------------------------------------------------------------------	
+	global id  = 1913    // final date to use in computations        
+	global fd  = 2006.75 // final date to use in computations        
+	local ids = "1913"    
+	local fds = "2006"
 
-global idbp  = $id    // initial date to use for bp computations        
-global fdbp  = $fd    // final date to use for bp computations    
+	global idbp  = $id    // initial date to use for bp computations        
+	global fdbp  = $fd    // final date to use for bp computations    
 
-global idgg  = 1913    // initial date to use dg normalization
-global fdgg  = 2006.75 // final date to use dg normalization
+	global idgg  = 1913    // initial date to use dg normalization
+	global fdgg  = 2006.75 // final date to use dg normalization
+	*------------------------------------------------------------------------------	
+}
+if $case == 2{  // *--post-accord sample 
+	*------------------------------------------------------------------------------	
+	global id  = 1951    // final date to use in computations        
+	global fd  = 2006.75 // final date to use in computations        
+	local ids = "1951"    
+	local fds = "2006"
+
+	global idbp  = $id    // initial date to use for bp computations        
+	global fdbp  = $fd    // final date to use for bp computations    
+
+	global idgg  = 1913    // initial date to use dg normalization
+	global fdgg  = 2006.75 // final date to use dg normalization
+	*------------------------------------------------------------------------------	
+}
 
 
 *--lhs variable
@@ -179,7 +198,7 @@ gen c_R = 1-ind
 ****************************************************************************************
 local varregBP L(1/$LAG).lngdp  L(1/$LAG).lngov  L(1/$LAG).mtr trend_*  // L(1/$LAG).rdefgdp
 
-reg lngov `varregBP'  if yq>=$idbp & yq <= $fdbp
+reg lngov `varregBP' 
 
 predict bp, residuals
 
@@ -271,7 +290,7 @@ forvalues ih = 0 (1) $Hmax {
 	replace dg_P =    ind *dg
 	replace dg_R = (1-ind)*dg					
 	
-	ivreg2 dy `varreg' (dg_P dg_R = bp_P bp_R news_P news_R) if yq>=$id & yq <= $fd, robust bw(auto) 
+	ivreg2 dy `varreg' (dg_P dg_R = bp_P bp_R news_P news_R) if yq>=$id & yq <= $fd, robust bw(auto) 	
 	
 	lincom dg_P - dg_R
 	local cc = r(estimate) // _b[UUF`ff'_f] // r(estimate)

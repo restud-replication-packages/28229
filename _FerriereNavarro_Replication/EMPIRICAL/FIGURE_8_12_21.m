@@ -14,8 +14,8 @@ DATA  = readtable('DATA_MACRO_FN.csv','Delimiter',',');
 QUARTER = table2array(DATA(:,1));
 RGOVPC  = table2array(DATA(:,3));
 NEWS    = table2array(DATA(:,4));
-psoc    = table2array(DATA(:,16));
-pfed    = table2array(DATA(:,17));
+psoc    = table2array(DATA(:,18));
+pfed    = table2array(DATA(:,19));
 
 %% FIGURE 8: G plot
 

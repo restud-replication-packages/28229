@@ -43,8 +43,6 @@ if $case == 1{  // *--lhs = lngov
 	global id   = 1913    // final date to use in computations        
 	global fd   = 2006.75 // final date to use in computations 
 	
-	
-	
 	local varreg lngdp_L*_P  lngdp_L*_R lngov_L*_P lngov_L*_R mtr_L*_P mtr_L*_R c_P c_R trend_*
 	*------------------------------------------------------------------------------
 }
@@ -52,7 +50,7 @@ else if $case == 2{ // *--lhs = tb3
 	*------------------------------------------------------------------------------	 
 	local yvar "tb3"	
 	globa drate = 0       // =0 if dy = Fh.yvar - L.yvar ,  =1 if dy = (Fh.yvar - L.yvar)/L.gdp
-	global id   = 1913    // final date to use in computations        
+	global id   = 1920    // final date to use in computations        
 	global fd   = 2006.75 // final date to use in computations        
 	
 	local varreg lngdp_L*_P  lngdp_L*_R lngov_L*_P lngov_L*_R mtr_L*_P mtr_L*_R tb3_L*_P tb3_L*_R c_P c_R trend_*
@@ -64,7 +62,7 @@ else if $case == 3{ //*--lhs = rdef
 	local yvar "rdef"	 
 	globa drate = 1       // =0 if dy = Fh.yvar - L.yvar ,  =1 if dy = (Fh.yvar - L.yvar)/L.gdp
 	global id   = 1913    // final date to use in computations        
-	global fd   = 2006.75 // final date to use in computations        
+	global fd   = 2006.75 // final date to use in computations        	
 	
 	local varreg lngdp_L*_P  lngdp_L*_R lngov_L*_P lngov_L*_R mtr_L*_P mtr_L*_R rdefgdp_L*_P rdefgdp_L*_R c_P c_R trend_*
 	*------------------------------------------------------------------------------
@@ -86,7 +84,7 @@ else if $case == 5{ //*--lhs = lnwgenf
 	local yvar "lnwgenf"	
 	globa drate = 0       // =0 if dy = Fh.yvar - L.yvar ,  =1 if dy = (Fh.yvar - L.yvar)/L.gdp 
 	global id   = 1947    // final date to use in computations        
-	global fd   = 2006.75 // final date to use in computations        
+	global fd   = 2006.75 // final date to use in computations        	
 	
 	local varreg lngdp_L*_P  lngdp_L*_R lngov_L*_P lngov_L*_R mtr_L*_P mtr_L*_R c_P lnwgenf_L*_P lnwgenf_L*_R c_R trend_*
 	*------------------------------------------------------------------------------
@@ -97,7 +95,7 @@ else if $case == 6{ //*--lhs = lnhours
 	local yvar "lnhours"	
 	globa drate = 0       // =0 if dy = Fh.yvar - L.yvar ,  =1 if dy = (Fh.yvar - L.yvar)/L.gdp 
 	global id   = 1939    // final date to use in computations        
-	global fd   = 2006.75 // final date to use in computations        
+	global fd   = 2006.75 // final date to use in computations        	
 	
 	local varreg lngdp_L*_P  lngdp_L*_R lngov_L*_P lngov_L*_R mtr_L*_P mtr_L*_R c_P lnhours_L*_P lnhours_L*_R c_R trend_*
 	*------------------------------------------------------------------------------
@@ -106,11 +104,12 @@ else if $case == 6{ //*--lhs = lnhours
 global idbp  = $id    // final date to use in bp shock computations        
 global fdbp  = $fd // final date to use in bp shock computations    
 
-global idgg  = 1913    // initial date to use dg normalization
-global fdgg  = 2006.75 // final date to use dg normalization
+global idgg  = $id    // initial date to use dg normalization
+global fdgg  = $fd // final date to use dg normalization
 
 *---can switch pvar: pfed (federal taxes only), and psoc (federal + social security taxes)
 local pvar "pfed"
+
 
 ****************************************************************************************
 *---variables computations
@@ -266,7 +265,7 @@ gen bp_R = (1-ind)*bp
  // defined above alreadt
 
 ****************************************************************************************
-*---normalize so that dg = 1% in full sample case
+*---normalize so that dg = 1% in selcted sample case
 ****************************************************************************************
 
 gen dyx = lngov - L.lngov
@@ -385,7 +384,7 @@ forvalues ih = 0 (1) $Hmax {
 
 use "$auxdir${sep}coef_save.dta", clear
 
-*--normalize st dg = 1% in full sample case
+*--normalize st dg = 1% in selcted sample case
 #delimit ;
 replace m_P = m_P*$p_adj ; replace m_se_P = m_se_P*$p_adj ; 
 replace m_R = m_R*$n_adj ; replace m_se_R = m_se_R*$n_adj ;

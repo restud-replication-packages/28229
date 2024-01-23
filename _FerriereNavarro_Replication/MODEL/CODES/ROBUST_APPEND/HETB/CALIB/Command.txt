@@ -1,3 +1,3 @@
-ifort -o FN.exe normcdf.f Toolbox.f90 GLOBALS.f90 ModuleSAVE.f90 ModuleINIT.f90 FUNCTIONS.f90 FUNCTIONS_lpe.f90 ModuleCOMPUTATIONS_lpe.f90 ModuleCOMPUTATIONS.f90 ModuleMPC.f90 Modulelpe.f90 ModuleSTEADY.f90 MAIN.f90 -mcmodel=large -shared-intel -qopenmp -mkl
+ifort -o FN.exe normcdf.f Toolbox.f90 GLOBALS.f90 ModuleSAVE.f90 ModuleINIT.f90 FUNCTIONS.f90 FUNCTIONS_lpe.f90 ModuleCOMPUTATIONS_lpe.f90 ModuleCOMPUTATIONS.f90 ModuleMPC.f90 MODULElpe.f90 ModuleSTEADY.f90 MAIN.f90 -mcmodel=large -shared-intel -qopenmp -mkl
 
 ./FN.exe

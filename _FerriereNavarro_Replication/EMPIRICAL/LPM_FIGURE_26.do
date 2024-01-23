@@ -40,7 +40,7 @@ local yvar "gdp"
 
 *-- 2 cases: 1) benchmark, 2) no MTR
 
-global case = 2
+global case = 2  // =1 for benchmark, =2 for no MTR case
 if $case == 1{  // *--benchmark
 	*------------------------------------------------------------------------------	
 	local cases "benchmark"
